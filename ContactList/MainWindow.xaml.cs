@@ -70,6 +70,7 @@ namespace ContactList
                 ser.Serialize(str, Contacts.ItemsSource); 
             }            
         }
+
     }
 
     [Serializable()]

@@ -4,13 +4,44 @@
              xmlns:local="clr-namespace:ContactList"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ControlTemplate x:Key="error">
-            <Border BorderBrush="OrangeRed" BorderThickness="2">
+        <ControlTemplate x:Key="error">           
+                <Border BorderBrush="OrangeRed" BorderThickness="2">
                 <Grid>
                     <AdornedElementPlaceholder/>
                     <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 4 0"/>
-                </Grid>
+                </Grid>               
             </Border>
         </ControlTemplate>
+        
+        <ControlTemplate x:Key="gradient" TargetType="Button">
+            <Border BorderBrush="Black" BorderThickness="3" >
+                <Border.Background>
+                    <LinearGradientBrush x:Name="brush" StartPoint="0,0" EndPoint="1,1" Opacity="0.0">
+                        <GradientStop x:Name="Stop1" Color="Blue" Offset="0" />
+                        <GradientStop x:Name="Stop2" Color="Yellow" Offset="0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentControl Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                </ContentControl>
+            </Border>
+            <ControlTemplate.Triggers>                
+                    <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True" Duration="0:0:0.5">
+                                <DoubleAnimation Storyboard.TargetName="brush" Storyboard.TargetProperty="Opacity"
+                                                 From="0.0" To="0.3" Duration="0:0:0.1"/>
+                                <DoubleAnimation Storyboard.TargetName="Stop1" Storyboard.TargetProperty="Offset"
+                                                 From="0.0" To="1" Duration="0:0:0.125"/>
+                                <DoubleAnimation Storyboard.TargetName="Stop2" Storyboard.TargetProperty="Offset"
+                                                 From="0.0" To="0.1" Duration="0:0:0.125"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </ControlTemplate.Triggers>            
+        </ControlTemplate>
+        
     </Application.Resources>
 </Application>
